@@ -1,6 +1,6 @@
 import React from 'react'
 import { Switch, Route } from 'react-router-dom'
-import BasicLayout from '../layout/Basic'
+import BasicLayout from '../layout/BasicLayout'
 
 const Router = () => {
   return (

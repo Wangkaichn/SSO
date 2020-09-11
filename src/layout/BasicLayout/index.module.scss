@@ -1,0 +1,9 @@
+.layout {
+  height: calc(100vh);
+  .header {
+    height: 52px;
+    display: flex;
+    justify-content: flex-end;
+    padding: 0 14px;
+  }
+}

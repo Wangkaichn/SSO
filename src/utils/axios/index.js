@@ -1,6 +1,5 @@
-// 为 axios 添加错误捕获
-import { message } from './node_modules/antd'
-import axios from './node_modules/axios'
+import { message } from 'antd'
+import axios from 'axios'
 import orgin from '../../envconfig'
 
 const instance = axios.create({
@@ -16,10 +15,8 @@ const successCallback = (response) => {
   message.success(`status: ${status}`)
   return { data, status, statusText }
 }
-const failedCallback = (error) => {
-  const { status } = error
-  message.warn(`error: ${status}`)
-  return Promise.reject(error)
+const failedCallback = ({ response }) => {
+  return Promise.reject(response)
 }
 instance.interceptors.response.use(successCallback, failedCallback)
 
