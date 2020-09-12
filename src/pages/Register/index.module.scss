@@ -6,7 +6,19 @@
   align-items: center;
   margin-top: 120px;
   .form {
-    width: 320px;
+    width: 360px;
+    .uploadAvatr {
+      :global(.ant-upload) {
+        background: transparent;
+      }
+    }
+    :global(.ant-input-affix-wrapper) {
+      background: transparent;
+      input {
+        color: white;
+        background: transparent;
+      }
+    }
     .submitButton {
       :global(.ant-form-item-control-input-content) {
         display: flex;

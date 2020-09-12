@@ -6,7 +6,6 @@ import styles from './index.module.scss'
 const Login = () => {
   const history = useHistory()
   const handleFinish = async () => {
-
   }
   const handleToRegister = () => {
     history.push('./register')
@@ -24,7 +23,7 @@ const Login = () => {
           <Button type="primary" htmlType="submit">
             登录
           </Button>
-          <Button onClick={handleToRegister}>
+          <Button type="ghost" onClick={handleToRegister}>
             去注册
           </Button>
       </Form.Item>
@@ -32,5 +31,4 @@ const Login = () => {
     </div>
   )
 }
-
 export default Login
