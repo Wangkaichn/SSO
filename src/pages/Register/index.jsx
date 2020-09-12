@@ -16,7 +16,7 @@ const Login = () => {
     <div className={styles.container}>
       <Form className={styles.form} form={form} name="basic" initialValues={{ remember: true }} onFinish={handleFinish}>
         <Form.Item label="昵称" name="name" rules={[{ required: true }]}>
-          <Input placeholder="请输入" />
+          <Input placeholder="请输入昵称" />
         </Form.Item>
         <Form.Item label="邮箱" name="email" rules={[{ required: true }, { type: 'email', message: '这不是一个有效的邮箱地址' }]}>
           <Input placeholder="请输入" />
