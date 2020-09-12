@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Spin } from 'antd'
 import { connect } from 'react-redux'
 import { Router } from 'react-router-dom'
@@ -8,10 +8,16 @@ import { fetchCurrent } from '@src/redux/actions/currentUser'
 import styles from './App.module.scss'
 
 
-const App = ({ isFetching = true, fetchCurrentUser }) => {
+const App = ({ fetchCurrentUser }) => {
+  const [loading, setLoading] = useState(false)
   const effect = async () => {
-    const res = await fetchCurrentUser()
-    console.info('res: ', res)
+    try {
+      setLoading(true)
+      await fetchCurrentUser()
+    } finally {
+      setLoading(false)
+    }
+    
   }
   useEffect(() => {
     effect()
@@ -19,8 +25,8 @@ const App = ({ isFetching = true, fetchCurrentUser }) => {
   }, [])
   return (
     <Router history={history}>
-      <Spin spinning={isFetching}>
-        {isFetching ? <div className={styles.spin} /> : router()}
+      <Spin spinning={loading}>
+        {loading ? <div className={styles.spin} /> : router()}
       </Spin>
     </Router>
   )
