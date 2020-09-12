@@ -2,10 +2,7 @@ const router = require('koa-router')()
 
 router.prefix('/oauth')
 
-
 router.get('/me', function (ctx, next) {
-  ctx.set('Access-Control-Allow-Origin', 'http://localhost:3000')
-  ctx.set('Access-Control-Allow-Credentials', 'true')
   ctx.status = 401
   // ctx.body = {
   //   data: {
@@ -14,9 +11,7 @@ router.get('/me', function (ctx, next) {
   //   }
   // }
 })
-router.get('/', function (ctx, next) {
-  ctx.set('Access-Control-Allow-Origin', 'http://localhost:3000')
-  ctx.set('Access-Control-Allow-Credentials', 'true')
+router.post('/register', function (ctx, next) {
   ctx.body = {
     a: 'A',
     b: ['B']

@@ -6,8 +6,8 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const users = require('./routes/oauth')
-const options = require('./routes/options')
+const query = require('./routes/query')
+const oauth = require('./routes/oauth')
 
 // error handler
 onerror(app)
@@ -33,8 +33,13 @@ app.use(async (ctx, next) => {
 })
 
 // routes
-app.use(options.routes(), options.allowedMethods())
-app.use(users.routes(), users.allowedMethods())
+app.use(async function (ctx, next) {
+  ctx.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+  ctx.set('Access-Control-Allow-Credentials', 'true')
+  await next()
+})
+// app.use(query.routes(), query.allowedMethods())
+app.use(oauth.routes(), oauth.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {
