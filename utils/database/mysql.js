@@ -1,6 +1,5 @@
-let mysql = require("mysql");
-let dbConnection = mysql.createConnection({
-//   host: "localhost",
+const mysql = require("mysql");
+const dbConnection = mysql.createConnection({
   host: "123.56.143.183",
   user: "root",
   password: "12312300",
@@ -13,7 +12,7 @@ dbConnection.connect((err) => {
   console.log("连接成功");
 });
 
-let sql = 'SELECT * FROM t_user';
+const sql = 'SELECT * FROM t_user';
 dbConnection.query(sql, (err, res) => {
     if (err) {
         console.log(err);
