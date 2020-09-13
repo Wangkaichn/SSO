@@ -34,11 +34,8 @@ app.use(async (ctx, next) => {
 
 // routes
 app.use(async function (ctx, next) {
-  const { host } = ctx.header
-  if (host.includes('localhost')) {
-    ctx.set('Access-Control-Allow-Origin', 'http://localhost:3000')
-    ctx.set('Access-Control-Allow-Credentials', 'true')
-  }
+  ctx.set('Access-Control-Allow-Origin', 'http://localhost:3000')
+  ctx.set('Access-Control-Allow-Credentials', 'true')
   await next()
 })
 app.use(query.routes(), query.allowedMethods())
