@@ -8,15 +8,33 @@ const dbConnection = createConnection({
   database: "sso",
   port: "33066",
 })
-dbConnection.connect((err) => {
-  if (err) {
-    throw err
-  }
-  console.log("连接成功")
-});
 
-const _query = (sql) => {
+const _connect = () => {
   return new Promise((resolve, reject) => {
+    dbConnection.connect((err) => {
+      if (err) {
+        reject(err)
+      }
+      console.log("Mysql 连接成功")
+      resolve()
+    })
+  })
+}
+const _end = () => {
+  return new Promise((resolve, reject) => {
+    try {
+      dbConnection.end()
+      console.log("Mysql 连接断开")
+      resolve()
+    } catch (err) {
+      reject(err)
+    }
+  })
+}
+
+const _query = async (sql) => {
+  await _connect()
+  const res =  new Promise((resolve, reject) => {
     dbConnection.query(sql, (err, res) => {
       if (err) {
         reject(err)
@@ -25,12 +43,16 @@ const _query = (sql) => {
       }
     })
   })
+  await _end()
+  return res
 }
+
 
 const test = async () => {
   const sql = 'SELECT * FROM ' + tableName
   const res = await _query(sql)
   console.info('res: ', res)
+  _stop()
 }
 
 const checkNickNameIsExisted = async (nickName) => {

@@ -6,10 +6,6 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const mysql = require('./utils/database/mysql')
-mysql.test()
-mysql.checkNickNameIsExisted('ff')
-
 const query = require('./routes/query')
 const oauth = require('./routes/oauth')
 
@@ -42,7 +38,7 @@ app.use(async function (ctx, next) {
   ctx.set('Access-Control-Allow-Credentials', 'true')
   await next()
 })
-// app.use(query.routes(), query.allowedMethods())
+app.use(query.routes(), query.allowedMethods())
 app.use(oauth.routes(), oauth.allowedMethods())
 
 // error-handling
