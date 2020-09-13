@@ -1,5 +1,6 @@
 const mysql = require('mysql');
 
+const tableName = 't_user'
 const pool  = mysql.createPool({
   host: "123.56.143.183",
   user: "root",
@@ -26,7 +27,6 @@ const _query = async (sql) => {
   })
 }
 
-
 const test = async () => {
   const sql = 'SELECT * FROM ' + tableName
   const res = await _query(sql)
@@ -39,8 +39,20 @@ const checkNickNameIsExisted = async (nickName) => {
   const res = await _query(sql)
   return !!res.length
 }
+const registerUser = async (val) => {
+  const keys = ['username', 'password', 'icon', 'mobile', 'email', 'nick_name']
+  const values = keys.map(key => {
+    if (['icon', 'email'].includes(key)) {
+      return '\'' + val[key] + '\''
+    }
+    return val[key] || 'null'
+  })
+  const sql = `INSERT INTO t_user (${keys.join(',')},create_time,update_time) VALUES (${values.join(',')},NOW(),NOW());`
+  return _query(sql)
+}
 
 module.exports = {
   test,
-  checkNickNameIsExisted
+  checkNickNameIsExisted,
+  registerUser
 }
