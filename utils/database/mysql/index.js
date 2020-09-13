@@ -1,51 +1,29 @@
-const { createConnection } = require('mysql')
+const mysql = require('mysql');
 
-const tableName = 't_user'
-const dbConnection = createConnection({
+const pool  = mysql.createPool({
   host: "123.56.143.183",
   user: "root",
   password: "12312300",
   database: "sso",
   port: "33066",
 })
-
-const _connect = () => {
-  return new Promise((resolve, reject) => {
-    dbConnection.connect((err) => {
-      if (err) {
-        reject(err)
-      }
-      console.log("Mysql 连接成功")
-      resolve()
-    })
-  })
-}
-const _end = () => {
-  return new Promise((resolve, reject) => {
-    try {
-      dbConnection.end()
-      console.log("Mysql 连接断开")
-      resolve()
-    } catch (err) {
-      reject(err)
-    }
-  })
-}
-
 const _query = async (sql) => {
-  await _connect()
-  const res =  new Promise((resolve, reject) => {
-    dbConnection.query(sql, (err, res) => {
-      if (err) {
-        reject(err)
-      } else {
-        resolve(res)
+  return new Promise((resolve, reject) => {
+    pool.getConnection(function(error, connection) {
+      if (error) {
+        console.warn('Mysql 连接失败')
+        reject(error)
       }
-      dbConnection.release()
+      connection.query(sql, async (error, results) => {
+        resolve(results)
+        connection.release()
+        if (error) {
+          console.warn(error)
+          reject(error)
+        }
+      })
     })
   })
-  await _end()
-  return res
 }
 
 
