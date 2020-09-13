@@ -11,7 +11,7 @@ const _query = async (sql) => {
   return new Promise((resolve, reject) => {
     pool.getConnection(function(error, connection) {
       if (error) {
-        console.warn('Mysql 连接失败')
+        console.warn('Mysql 连接失败!!!')
         reject(error)
       }
       connection.query(sql, async (error, results) => {
