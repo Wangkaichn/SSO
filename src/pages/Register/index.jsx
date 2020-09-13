@@ -7,16 +7,21 @@ import styles from './index.module.scss'
 
 const Login = () => {
   const history = useHistory()
+  const [submitLoading, setSubmitLoading] = useState(false)
   const [nickNameStatus, setNickNameStatus] = useState('')
   const [nickNameError, setNickNameError] = useState('')
   const handleFinish = async (formValue) => {
+    setSubmitLoading(true)
     await http.post('/query/registerUser', formValue)
+    setSubmitLoading(false)
+    handleToLogin()
   }
-  const handleFieldChange = async ({ nickname }) => {
-    if (!nickname) {
+  const handleFieldChange = async (solo) => {
+    const nickName = solo['nick_name']
+    if (!nickName) {
       return
     }
-    const { data: { isExisted } } = await http.get(`/query/checkNickNameIsExisted?nickname=${nickname}`)
+    const { data: { isExisted } } = await http.get(`/query/checkNickNameIsExisted?nickname=${nickName}`)
     setNickNameStatus(isExisted ? 'error' : 'success')
     setNickNameError(isExisted ? '当前昵称已经存在' : '')
   }
@@ -49,7 +54,7 @@ const Login = () => {
           <Input.Password allowClear />
         </Form.Item>
         <Form.Item className={styles.submitButton}>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" loading={submitLoading} htmlType="submit">
             注册
           </Button>
           <Button type="ghost" onClick={handleToLogin}>
