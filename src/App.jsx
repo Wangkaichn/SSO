@@ -8,18 +8,16 @@ import { fetchCurrent } from '@src/redux/actions/currentUser'
 import styles from './App.module.scss'
 
 
-const App = ({ fetchCurrentUser }) => {
+const App = ({ fetchCurrentUser, ...props }) => {
   const [loading, setLoading] = useState(false)
   const effect = async () => {
     try {
+      const { pathname } = window.location
+      if (['register', 'login'].some(path => pathname.includes(path))) {
+        return
+      }
       setLoading(true)
       await fetchCurrentUser()
-    } catch({ response }) {
-      console.info('response: ', response)
-      if (response && response.status === 401) {
-        console.info('aaaaaaaaaaaaaaaaaaaaaaa')
-        // window.location = '/login'
-      }
     } finally {
       setLoading(false)
     }
