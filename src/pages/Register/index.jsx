@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Input, Button } from 'antd'
+import { Form, Input, Button, message } from 'antd'
 import { useHistory } from 'react-router-dom'
 import http from '@src/utils/axios'
 import UploadAvatr from '@src/components/Upload/UploadAvatar'
@@ -12,8 +12,9 @@ const Login = () => {
   const [nickNameError, setNickNameError] = useState('')
   const handleFinish = async (formValue) => {
     setSubmitLoading(true)
-    await http.post('/query/registerUser', formValue)
+    await http.post('/query/register', formValue)
     setSubmitLoading(false)
+    message.success('注册成功')
     handleToLogin()
   }
   const handleFieldChange = async (solo) => {
