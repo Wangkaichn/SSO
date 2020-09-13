@@ -39,7 +39,7 @@ const checkNickNameIsExisted = async (nickName) => {
   return !!res.length
 }
 const registerUser = async (val) => {
-  const keys = ['username', 'password', 'icon', 'mobile', 'email', 'nick_name']
+  const keys = ['password', 'icon', 'mobile', 'email', 'nick_name']
   const values = keys.map(key => `'${val[key] || 'null'}'`)
   const sql = `INSERT INTO t_user (${keys.join(',')},create_time,update_time) VALUES (${values.join(',')},NOW(),NOW());`
   return _query(sql)
