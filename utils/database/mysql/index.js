@@ -38,7 +38,7 @@ const checkNickNameIsExisted = async (nickName) => {
   const res = await _query(sql)
   return !!res.length
 }
-const registerUser = async (val) => {
+const register = async (val) => {
   const keys = ['password', 'icon', 'mobile', 'email', 'nick_name']
   const values = keys.map(key => `'${val[key] || 'null'}'`)
   const sql = `INSERT INTO t_user (${keys.join(',')},create_time,update_time) VALUES (${values.join(',')},NOW(),NOW());`
@@ -54,5 +54,6 @@ const login = async (nickName, pwd) => {
 module.exports = {
   test,
   checkNickNameIsExisted,
-  registerUser
+  register,
+  login
 }
