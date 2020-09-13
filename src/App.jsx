@@ -14,6 +14,12 @@ const App = ({ fetchCurrentUser }) => {
     try {
       setLoading(true)
       await fetchCurrentUser()
+    } catch({ response }) {
+      console.info('response: ', response)
+      if (response && response.status === 401) {
+        console.info('aaaaaaaaaaaaaaaaaaaaaaa')
+        // window.location = '/login'
+      }
     } finally {
       setLoading(false)
     }

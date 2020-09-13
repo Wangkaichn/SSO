@@ -5,8 +5,9 @@ import orgin from '../../envconfig'
 const instance = axios.create({
   baseURL: orgin,
   withCredentials: true,
+  'content-type': '*',
   headers: {
-    // Authorization: `bearer ${Oauth.getStoreToken()}`
+    // Authorization: `bearer`
   }
 })
 
