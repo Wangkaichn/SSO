@@ -30,7 +30,7 @@ const _query = (sql) => {
 
 const registerUser = async (val) => {
   const sql = 'INSERT INTO t_user (username,password,icon,mobile,email,nick_name,createTime,updateTime) VALUES (?,?,?,?,?,NOW(),NOW());'
-  const res = await _query(sql, val)
+  const res = await _query(sql,val)
   console.info('res: ', res)
 }
 

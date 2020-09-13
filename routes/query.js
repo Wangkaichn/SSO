@@ -8,6 +8,9 @@ router.post("/registerUser", async (ctx, next) => {
   arr.push(ctx.request.body["name"]);
   arr.push(ctx.request.body["password"]);
   arr.push(ctx.request.body["email"]);
+  arr.push(ctx.request.body["phone"]);
+  arr.push(ctx.request.body["nickname"]);
+  arr.push(ctx.request.body["avatar"]);
 
   await userService
     .addUserData(arr)

@@ -6,7 +6,6 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const mysql = require('./utils/database/mysql')
 
 const query = require('./routes/query')
 const oauth = require('./routes/oauth')
