@@ -8,7 +8,7 @@ router.options("/registerUser", async (ctx, next) => {
   ctx.response.set('Access-Control-Allow-Credentials', 'true')
   ctx.response.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
   ctx.status = 200
-  ctx.body = ['a']
+  ctx.body = ''
   await next()
 })
 

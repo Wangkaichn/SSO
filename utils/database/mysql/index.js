@@ -10,12 +10,12 @@ const pool  = mysql.createPool({
 })
 const _query = async (sql) => {
   return new Promise((resolve, reject) => {
-    pool.getConnection(function(error, connection) {
+    pool.getConnection((error, connection) => {
       if (error) {
         console.warn('Mysql 连接失败!!!')
         reject(error)
       }
-      connection.query(sql, async (error, results) => {
+      connection.query(sql, (error, results) => {
         resolve(results)
         connection.release()
         if (error) {
@@ -31,7 +31,6 @@ const test = async () => {
   const sql = 'SELECT * FROM ' + tableName
   const res = await _query(sql)
   console.info('res: ', res)
-  _stop()
 }
 
 const checkNickNameIsExisted = async (nickName) => {
@@ -41,12 +40,7 @@ const checkNickNameIsExisted = async (nickName) => {
 }
 const registerUser = async (val) => {
   const keys = ['username', 'password', 'icon', 'mobile', 'email', 'nick_name']
-  const values = keys.map(key => {
-    if (['icon', 'email'].includes(key)) {
-      return '\'' + val[key] + '\''
-    }
-    return val[key] || 'null'
-  })
+  const values = keys.map(key => `'${val[key] || 'null'}'`)
   const sql = `INSERT INTO t_user (${keys.join(',')},create_time,update_time) VALUES (${values.join(',')},NOW(),NOW());`
   return _query(sql)
 }
