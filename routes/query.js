@@ -1,4 +1,5 @@
 const router = require("koa-router")();
+const mysql = require('../utils/database/mysql')
 
 router.prefix("/query");
 
@@ -12,8 +13,8 @@ router.post("/registerUser", async (ctx, next) => {
   arr.push(ctx.request.body["nickname"]);
   arr.push(ctx.request.body["avatar"]);
 
-  await userService
-    .addUserData(arr)
+  await mysql
+    .registerUser(arr)
     .then((data) => {
       let r = "";
       if (data.affectedRows != 0) {
@@ -30,6 +31,10 @@ router.post("/registerUser", async (ctx, next) => {
     });
 });
 
-router.get("/checkNickNameIsExisted", function (ctx, next) {});
+router.get('/checkNickNameIsExisted', async function (ctx, next) {
+    const { nickname } = ctx.request.query
+    const isExisted = await mysql.checkNickNameIsExisted(nickname)
+    ctx.body = { isExisted }
+  })
 
 module.exports = router;
