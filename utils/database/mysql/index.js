@@ -23,6 +23,7 @@ const _query = (sql) => {
       } else {
         resolve(res)
       }
+      dbConnection.release()
     })
   })
 }
