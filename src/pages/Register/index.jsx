@@ -7,11 +7,10 @@ import styles from './index.module.scss'
 
 const Login = () => {
   const history = useHistory()
-  const [form] = Form.useForm()
   const [nickNameStatus, setNickNameStatus] = useState('')
   const [nickNameError, setNickNameError] = useState('')
   const handleFinish = async (formValue) => {
-    console.info('formValue: ', formValue, form.validateFields()) 
+    await http.post('/registerUser', formValue)
   }
   const handleFieldChange = async ({ nickname }) => {
     if (!nickname) {
@@ -28,7 +27,6 @@ const Login = () => {
     <div className={styles.container}>
       <Form
         className={styles.form}
-        form={form}
         name="basic"
         labelAlign="right"
         labelCol={{ span: 6 }}
