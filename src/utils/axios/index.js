@@ -14,9 +14,10 @@ const successCallback = (response) => {
   const { data, status, statusText } = response
   return { data, status, statusText }
 }
-const failedCallback = ({ response }) => {
-  message.success(`status: ${response.status}`)
-  return Promise.reject(response)
+const failedCallback = (error) => {
+  const { response } = error
+  response && message.warn(`status: ${response.status}`)
+  return Promise.reject(error)
 }
 instance.interceptors.response.use(successCallback, failedCallback)
 
