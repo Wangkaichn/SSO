@@ -6,7 +6,6 @@ router.prefix("/query");
 router.post("/registerUser", async (ctx, next) => {
   let arr = [];
 
-  arr.push(ctx.request.body["name"]);
   arr.push(ctx.request.body["password"]);
   arr.push(ctx.request.body["email"]);
   arr.push(ctx.request.body["phone"]);
