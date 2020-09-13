@@ -45,6 +45,12 @@ const registerUser = async (val) => {
   return _query(sql)
 }
 
+const login = async (nickName, pwd) => {
+   const sql = `SELECT nick_name, email, mobile, password FROM ${tableName} WHERE nick_name = '${nickName}' AND password = '${pwd}'`
+   const res = await _query(sql)
+   return res
+}
+
 module.exports = {
   test,
   checkNickNameIsExisted,
