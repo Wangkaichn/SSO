@@ -25,4 +25,13 @@ router.get('/checkNickNameIsExisted', async function (ctx, next) {
     ctx.body = { isExisted }
   })
 
+router.get('/login', async (ctx, next) => {
+  const { nickname } = ctx.request.query
+  const { password } = ctx.request.query
+  const data = await mysql.login(nickname, password)
+  if (data) {
+    ctx.body = { data }
+  }
+})
+
 module.exports = router;
