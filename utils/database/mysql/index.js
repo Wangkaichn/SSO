@@ -11,7 +11,7 @@ const _query = async (sql) => {
   return new Promise((resolve, reject) => {
     pool.getConnection(function(error, connection) {
       if (error) {
-        console.warn('Mysql 连接失败')
+        console.warn('Mysql 连接失败!!!')
         reject(error)
       }
       connection.query(sql, async (error, results) => {
@@ -26,12 +26,14 @@ const _query = async (sql) => {
   })
 }
 
-const tableName = 't_user'
+
 const test = async () => {
   const sql = 'SELECT * FROM ' + tableName
   const res = await _query(sql)
   console.info('res: ', res)
+  _stop()
 }
+
 const checkNickNameIsExisted = async (nickName) => {
   const sql = `SELECT id FROM ${tableName} WHERE nick_name = '${nickName}'` 
   const res = await _query(sql)
