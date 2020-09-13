@@ -12,10 +12,10 @@ const instance = axios.create({
 
 const successCallback = (response) => {
   const { data, status, statusText } = response
-  message.success(`status: ${status}`)
   return { data, status, statusText }
 }
 const failedCallback = ({ response }) => {
+  message.success(`status: ${response.status}`)
   return Promise.reject(response)
 }
 instance.interceptors.response.use(successCallback, failedCallback)
