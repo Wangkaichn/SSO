@@ -6,8 +6,10 @@ const onerror = require('koa-onerror')
 const bodyparser = require('koa-bodyparser')
 const logger = require('koa-logger')
 
-const query = require('./routes/query')
-const oauth = require('./routes/oauth')
+const { Login, Register, Query, Oauth, Upload } = require('./routes')
+require('./utils/Database/Redis')
+require('./utils/Database/Redis')
+require('./utils/Database/Mysql')
 
 // error handler
 onerror(app)
@@ -38,8 +40,12 @@ app.use(async function (ctx, next) {
   ctx.set('Access-Control-Allow-Credentials', 'true')
   await next()
 })
-app.use(query.routes(), query.allowedMethods())
-app.use(oauth.routes(), oauth.allowedMethods())
+
+app.use(Login.routes(), Login.allowedMethods())
+app.use(Register.routes(), Register.allowedMethods())
+app.use(Query.routes(), Query.allowedMethods())
+app.use(Oauth.routes(), Oauth.allowedMethods())
+app.use(Upload.routes(), Upload.allowedMethods())
 
 // error-handling
 app.on('error', (err, ctx) => {

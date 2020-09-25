@@ -23,6 +23,8 @@
     "mysql": "^2.18.1"
   },
   "devDependencies": {
-    "nodemon": "^1.19.1"
+    "koa-body": "^4.2.0",
+    "nodemon": "^1.19.1",
+    "redis": "^3.0.2"
   }
 }

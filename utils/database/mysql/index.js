@@ -1,12 +1,18 @@
-const mysql = require('mysql');
+const mysql = require('mysql')
 
-const tableName = 't_user'
+const tableName = 'user'
 const pool  = mysql.createPool({
-  host: "123.56.143.183",
+  host: "139.155.56.176",
   user: "root",
-  password: "12312300",
-  database: "sso",
-  port: "33066",
+  password: "Wo123456",
+  database: "SSO",
+  port: 3306,
+
+  // host: "123.56.143.183",
+  // user: "root",
+  // password: "12312300",
+  // database: "sso",
+  // port: "33066",
 })
 const _query = async (sql) => {
   return new Promise((resolve, reject) => {
@@ -14,15 +20,16 @@ const _query = async (sql) => {
       if (error) {
         console.warn('Mysql 连接失败!!!')
         reject(error)
+      } else {
+        connection.query(sql, (error, results) => {
+          resolve(results)
+          connection.release()
+          if (error) {
+            console.warn(error)
+            reject(error)
+          }
+        })
       }
-      connection.query(sql, (error, results) => {
-        resolve(results)
-        connection.release()
-        if (error) {
-          console.warn(error)
-          reject(error)
-        }
-      })
     })
   })
 }
@@ -39,9 +46,9 @@ const checkNickNameIsExisted = async (nickName) => {
   return !!res.length
 }
 const register = async (val) => {
-  const keys = ['password', 'icon', 'mobile', 'email', 'nick_name']
+  const keys = ['password', 'avatar', 'mobile', 'email', 'nick_name']
   const values = keys.map(key => `'${val[key] || 'null'}'`)
-  const sql = `INSERT INTO t_user (${keys.join(',')},create_time,update_time) VALUES (${values.join(',')},NOW(),NOW());`
+  const sql = `INSERT INTO ${tableName} (${keys.join(',')},create_time,update_time) VALUES (${values.join(',')},NOW(),NOW());`
   return _query(sql)
 }
 
