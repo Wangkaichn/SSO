@@ -1,7 +1,8 @@
 import React from 'react'
 import { Layout } from 'antd'
 import Routes from '@src/router/Routers'
-import Header from '../BasicComponents/Header'
+import Header from './BasicComponents/Header'
+import AvatarShowUserInfo from './BasicComponents/AvatarShowUserInfo'
 import routerConfig from './routerConfig'
 import styles from './index.module.scss'
 
@@ -14,6 +15,7 @@ export default () => {
       </AntdHeader>
       <Content>
         <Routes routerData={routerConfig} />
+        <AvatarShowUserInfo />
       </Content>
     </Layout>
   )

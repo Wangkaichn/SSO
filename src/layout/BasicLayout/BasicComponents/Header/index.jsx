@@ -4,15 +4,7 @@ import Avatar from '@src/components/Avatar'
 import styles from './index.module.scss'
 
 const Header = () => {
-  if (!window.currentUser) {
-    return <span className={styles.notLogin}>未登录</span>
-  }
-  const { headUrl, name } = window.currentUser
-  return (
-    <div className={styles.container}>
-      <Avatar name={name} headUrl={headUrl} isShowName />
-    </div>
-  )
+  return null
 }
 
 const mapStateToProps = state => state

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Input, Button, message } from 'antd'
 import { useHistory } from 'react-router-dom'
 import http from '@src/utils/axios'
@@ -12,7 +12,7 @@ const Login = () => {
   const [nickNameError, setNickNameError] = useState('')
   const handleFinish = async (formValue) => {
     setSubmitLoading(true)
-    await http.post('/query/register', formValue)
+    await http.post('/register', formValue)
     setSubmitLoading(false)
     message.success('注册成功')
     handleToLogin()
@@ -39,7 +39,7 @@ const Login = () => {
         onFinish={handleFinish}
         onValuesChange={handleFieldChange}
       >
-        <Form.Item hasFeedback label="头像" name="icon" rules={[{ required: true }]}>
+        <Form.Item hasFeedback label="头像" name="avatar" rules={[{ required: true }]}>
           <UploadAvatr className={styles.uploadAvatr} />
         </Form.Item>
         <Form.Item hasFeedback className={styles.nickName} label="昵称" name="nick_name" rules={[{ required: true }]} validateStatus={nickNameStatus} help={nickNameError}>

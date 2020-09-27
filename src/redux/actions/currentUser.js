@@ -10,7 +10,7 @@ export const fetchCurrent = () => async (dispatch) => {
   })
   const {
     data: { data: user }
-  } = await http('/oauth/me')
+  } = await http.get('/oauth/me')
   window.currentUser = user
   dispatch({
     type: FETCH_CURRENT_USER_SUCCESS,

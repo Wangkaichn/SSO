@@ -7,7 +7,7 @@ import styles from './index.module.scss'
 const Login = () => {
   const history = useHistory()
   const handleFinish = async (formValue) => {
-    await http.post('/query/login', formValue)
+    await http.post('/login', formValue)
     message.success('登录成功')
     window.location = '/'
   }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Upload, Button } from 'antd'
+import { Upload, Button, message } from 'antd'
+import origin from '../../../envconfig.js'
 
 interface Props {
   className?: string,
@@ -10,10 +11,20 @@ const UploadAvatar = ({
   onChange
 }: Props): JSX.Element => {
   const [imageUrl, setImageUrl] = useState('')
-  const handleBeforeUpload = () => false
-  const handleChange = () => {
-    setImageUrl('https://pic4.zhimg.com/8ab19e005614562e20b2142dd9bf4768_xs.jpg')
-    onChange('https://pic4.zhimg.com/8ab19e005614562e20b2142dd9bf4768_xs.jpg')
+  const handleBeforeUpload = ({ type }: any) => {
+    const isImageType = type.includes('image')
+    if (!isImageType) {
+      message.warn('只能上传图片')
+    }
+    return isImageType
+  }
+  const handleChange = ({ file: { response } }: any) => {
+    if (!response) {
+      return
+    }
+    const { url } = response
+    setImageUrl(origin + url)
+    onChange(url)
   }
   return (
     <Upload
@@ -21,7 +32,7 @@ const UploadAvatar = ({
         className={className}
         listType="picture-card"
         showUploadList={false}
-        action=""
+        action={`${origin}/upload/userAvatar`}
         beforeUpload={handleBeforeUpload}
         onChange={handleChange}
       >

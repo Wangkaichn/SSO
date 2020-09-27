@@ -2,14 +2,6 @@ import { message } from 'antd'
 import axios from 'axios'
 import orgin from '../../envconfig'
 
-const instance = axios.create({
-  baseURL: orgin,
-  withCredentials: true,
-  'content-type': '*',
-  headers: {
-    // Authorization: `bearer`
-  }
-})
 
 const successCallback = (response) => {
   const { data, status, statusText } = response
@@ -20,6 +12,16 @@ const failedCallback = (error) => {
   response && message.warn(`status: ${response.status}`)
   return Promise.reject(error)
 }
-instance.interceptors.response.use(successCallback, failedCallback)
+function CreateAxios (options) {
+  const instance = axios.create({
+    baseURL: orgin,
+    withCredentials: true,
+    ...options
+  })
+  instance.interceptors.response.use(successCallback, failedCallback)
+  return instance
+}
 
-export default instance
+
+export default new CreateAxios()
+export { CreateAxios }
